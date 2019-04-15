@@ -27,10 +27,8 @@ def no_whitespace(val):
         return False
 
 def validate_email(val):
-    # regex for e-mails: /[a-z0-9_]+\.?[a-z0-9_]+@[a-z]+\.[a-z]+/i
-    # alternate: "[a-zA-Z0-9_]+\.?[a-zA-Z0-9_]+@[a-z]+\.[a-z]+"
+   
     valid_email = re.compile("[a-zA-Z0-9_]+\.?[a-zA-Z0-9_]+@[a-z]+\.[a-z]+")
-    # Note: I was unhappy with the email restrictions, as they wouldn't let my own email pass. So I decided to change the requirements to allow one dot (".") before the "@" symbol and one dot (".") after (obviously, before the extension). The characters a-z, A-Z, the digits 0-9, and the underscore ("_") character are also allowed before the "@" symbol.
     if valid_email.match(val):
         return True
     else:
@@ -39,17 +37,17 @@ def validate_email(val):
 @app.route("/validate-form", methods=["POST"])
 def validate():
    
-    username_input = request.form['username']  # grabs user data from form field "username"
-    password_input = request.form['password']  # grabs user data from form field "password"
-    verify_input = request.form['verify']  # grabs user data from form field "verify"
-    email_input = request.form['email']  # grabs user data from form field "email"
+    username_input = request.form['username']  
+    password_input = request.form['password']  
+    verify_input = request.form['verify']  
+    email_input = request.form['email']  
 
-    username_error = ""  # create variable to hold error message for this field
-    password_error = ""  # ditto
-    verify_error = ""  # ditto
-    email_error = ""  # ditto]
+    username_error = ""  
+    password_error = ""  
+    verify_error = ""  
+    email_error = ""  
 
-    # --------------- LONG FORM -----------------
+    
     if not is_filled(username_input):
         username_error = "This field cannot be empty"
         username_input = ""
@@ -95,7 +93,7 @@ def validate():
                 email_input = ""
 
    
-    if not username_error and not password_error and not verify_error and not email_error:  # if we don't have any error messages:
+    if not username_error and not password_error and not verify_error and not email_error:  
         return render_template("welcome.html", username=username_input)
     else:
         return render_template ("signup.html",username_input=username_input, email_input=email_input,
